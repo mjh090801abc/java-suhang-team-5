@@ -1,8 +1,8 @@
 
-package com.todaywhat.signup.controller;
+package com.todaywhat.auth.controller;
 
-import com.todaywhat.signup.dto.SignUpRequest;
-import com.todaywhat.signup.service.UserService;
+import com.todaywhat.auth.dto.SignUpRequest;
+import com.todaywhat.auth.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class SignUpController {
+public class AuthController {
 
-    private final UserService userService;
+    private final AuthService userService;
 
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@Valid @RequestBody SignUpRequest signUpRequest) {

@@ -1,9 +1,9 @@
 
-package com.todaywhat.signup.service;
+package com.todaywhat.auth.service;
 
-import com.todaywhat.signup.dto.SignUpRequest;
-import com.todaywhat.signup.entity.User;
-import com.todaywhat.signup.repository.UserRepository;
+import com.todaywhat.auth.dto.SignUpRequest;
+import com.todaywhat.auth.entity.User;
+import com.todaywhat.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
