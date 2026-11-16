@@ -1,5 +1,5 @@
-package com.todaywhat.dto.response;
-import com.todaywhat.domain.Task;
+package com.todaywhat.task.dto.response;
+import com.todaywhat.task.domain.Task;
 import lombok.Getter;
 
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package com.todaywhat.domain;
+package com.todaywhat.task.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
