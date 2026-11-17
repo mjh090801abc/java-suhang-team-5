@@ -1,5 +1,5 @@
 
-package com.todaywhat.auth.entity;
+package com.todaywhat.auth.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
