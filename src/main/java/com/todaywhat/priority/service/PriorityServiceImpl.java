@@ -45,4 +45,13 @@ public class PriorityServiceImpl implements PriorityService {
 
         return deadlineScore + importanceScore;
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    // 우선순위 높은 목록 3개 반환
+    public List<PriorityResponse> recommendTasks() {
+        return getPriorities().stream()
+                .limit(3)
+                .toList();
+    }
 }

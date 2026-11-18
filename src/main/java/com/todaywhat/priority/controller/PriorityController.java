@@ -1,3 +1,4 @@
+
 package com.todaywhat.priority.controller;
 
 import com.todaywhat.priority.dto.PriorityResponse;
@@ -17,8 +18,15 @@ public class PriorityController {
 
     private final PriorityService priorityService;
 
+    // 전체 우선순위 조회
     @GetMapping
     public ResponseEntity<List<PriorityResponse>> getPriorities() {
         return ResponseEntity.ok(priorityService.getPriorities());
+    }
+
+    // 우선순위 상위 3개 추천
+    @GetMapping("/recommend")
+    public ResponseEntity<List<PriorityResponse>> recommendTasks() {
+        return ResponseEntity.ok(priorityService.recommendTasks());
     }
 }
