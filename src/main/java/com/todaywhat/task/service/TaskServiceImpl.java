@@ -2,6 +2,7 @@ package com.todaywhat.task.service;
 
 import com.todaywhat.task.domain.Task;
 import com.todaywhat.task.dto.request.TaskRequest;
+import com.todaywhat.task.dto.request.TaskStatusRequest;
 import com.todaywhat.task.dto.response.TaskResponse;
 import com.todaywhat.task.repository.TaskRepository;
 import org.springframework.http.HttpStatus;
@@ -110,6 +111,17 @@ public class TaskServiceImpl implements TaskService{
             // 중요도가 입력되지 않았거나 1보다 작거나 5보다 큰 경우
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "중요도는 1부터 5까지 입력해주세요.");
         }
+    }
+
+    @Override
+    @Transactional
+    public TaskResponse updateStatus(Long id, TaskStatusRequest request) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        task.updateStatus(request.completed());
+
+        return new TaskResponse(task);
     }
 
 

@@ -1,6 +1,6 @@
 package com.todaywhat.auth.repository;
 
-import com.todaywhat.auth.entity.User;
+import com.todaywhat.auth.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

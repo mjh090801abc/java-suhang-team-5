@@ -6,6 +6,7 @@ import lombok.Getter;
 import java.time.LocalDate;
 
 @Entity
+@Getter
 @Table(name = "tasks") //테이블 이름 지정
 public class Task {
 
@@ -22,37 +23,26 @@ public class Task {
     @Column(nullable = false)
     private Integer importance; //중요도, 정수 저장
 
-    //같은 패키지 및 상속받은 클래스에서 접근 가능
-    protected Task() {} //Task 클래스의 기본 생성자
+    @Column(nullable = false)
+    private boolean completed = false;
 
-    //객체 생성
+    protected Task() {
+    }
+
     public Task(String title, LocalDate deadline, Integer importance) {
         this.title = title;
         this.deadline = deadline;
         this.importance = importance;
     }
 
-    //기존에 등록된 할 일 정보 수정
     public void update(String title, LocalDate deadline, Integer importance) {
         this.title = title;
         this.deadline = deadline;
         this.importance = importance;
     }
 
-
-    public Long getId() {
-        return id;
+    public void updateStatus(boolean completed) {
+        this.completed = completed;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public Integer getImportance() {
-        return importance;
-    }
 }

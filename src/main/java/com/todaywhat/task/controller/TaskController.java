@@ -2,8 +2,10 @@ package com.todaywhat.task.controller;
 
 import com.todaywhat.task.domain.Task;
 import com.todaywhat.task.dto.request.TaskRequest; // 요청 데이터 전달받는 클래스
+import com.todaywhat.task.dto.request.TaskStatusRequest;
 import com.todaywhat.task.dto.response.TaskResponse; // 응답 데이터 전달 클래스
 import com.todaywhat.task.service.TaskService;  // 할 일 기능 처리 Service
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*; // Spring 웹 관련 어노테이션 가져오기
@@ -54,4 +56,13 @@ public class TaskController {
         taskService.deleteTask(id); // 해당 ID 할 일 삭제 요청
         return ResponseEntity.noContent().build(); //204(NO_CONTENT) 반환
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<TaskResponse> updateStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody TaskStatusRequest request) {
+        return ResponseEntity.ok(taskService.updateStatus(id, request));
+    }
+
+
 }

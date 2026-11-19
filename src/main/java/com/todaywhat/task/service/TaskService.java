@@ -1,6 +1,7 @@
 package com.todaywhat.task.service;
 
 import com.todaywhat.task.dto.request.TaskRequest;
+import com.todaywhat.task.dto.request.TaskStatusRequest;
 import com.todaywhat.task.dto.response.TaskResponse;
 
 import java.util.List;
@@ -23,4 +24,7 @@ public interface TaskService {
 
     // 할 일 삭제
     void deleteTask(Long id);
+
+    // 할 일 상태
+    TaskResponse updateStatus(Long id, TaskStatusRequest request);
 }

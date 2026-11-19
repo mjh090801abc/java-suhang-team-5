@@ -3,7 +3,7 @@ package com.todaywhat.auth.service;
 
 import com.todaywhat.auth.dto.LoginRequest;
 import com.todaywhat.auth.dto.SignUpRequest;
-import com.todaywhat.auth.entity.User;
+import com.todaywhat.auth.domain.User;
 import com.todaywhat.auth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
