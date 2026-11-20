@@ -1,4 +1,3 @@
-
 package com.todaywhat.task.controller;
 
 import com.todaywhat.task.repository.TaskRepository;
@@ -110,6 +109,73 @@ class TaskControllerTest {
                     }
                     """))
                 .andExpect(status().isBadRequest());
+    }
+
+    // 우선순위 계산 테스트
+    @Test
+    void priorityTest() throws Exception {
+        createTask();
+
+        mockMvc.perform(get("/api/priority"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].title").value("테스트 할 일"))
+                .andExpect(jsonPath("$[0].score").isNumber());
+    }
+
+    // 우선순위 추천 테스트
+    @Test
+    void recommendTest() throws Exception {
+        createTask();
+
+        mockMvc.perform(get("/api/priority/recommend"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].title").value("테스트 할 일"));
+    }
+
+    // 완료 상태 변경 및 추천 제외 테스트
+    @Test
+    void updateStatusTest() throws Exception {
+        Long id = createTask();
+
+        mockMvc.perform(patch("/tasks/" + id + "/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                    {
+                        "completed": true
+                    }
+                    """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.completed").value(true));
+
+        mockMvc.perform(get("/api/priority/recommend"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    // 통계 및 분석 테스트
+    @Test
+    void statisticsTest() throws Exception {
+        Long id = createTask();
+
+        mockMvc.perform(get("/api/statistics"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.total").value(1))
+                .andExpect(jsonPath("$.completed").value(0))
+                .andExpect(jsonPath("$.remaining").value(1))
+                .andExpect(jsonPath("$.completionRate").value(0.0));
+
+        mockMvc.perform(patch("/tasks/" + id + "/status")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"completed\":true}"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/statistics"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.total").value(1))
+                .andExpect(jsonPath("$.completed").value(1))
+                .andExpect(jsonPath("$.remaining").value(0))
+                .andExpect(jsonPath("$.completionRate").value(100.0));
     }
 
     // 테스트용 할 일 등록 후 생성된 ID 반환

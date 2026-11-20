@@ -20,12 +20,12 @@ public class PriorityServiceImpl implements PriorityService {
     private final TaskRepository taskRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    // 전체 조회 -> 할 일 점수 계산 -> 점수 낮은 순으로 정렬 -> 정렬된 결과를 List로 변환
     public List<PriorityResponse> getPriorities() {
         return taskRepository.findAll().stream()
+                .filter(task -> !task.isCompleted())
                 .map(task -> new PriorityResponse(task, calculateScore(task)))
-                .sorted(Comparator.comparingInt(PriorityResponse::getScore)
+                .sorted(Comparator
+                        .comparingInt(PriorityResponse::getScore)
                         .thenComparing(PriorityResponse::getDeadline))
                 .toList();
     }
