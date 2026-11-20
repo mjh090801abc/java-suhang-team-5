@@ -96,6 +96,25 @@ class TaskControllerTest {
                 .andExpect(status().isNotFound());
     }
 
+    // 할 일이 없을 때 전체 조회 테스트
+    @Test
+    void getAllTasksEmptyTest() throws Exception {
+        mockMvc.perform(get("/tasks"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
+    }
+    // 전체 할 일 조회 테스트
+    @Test
+    void getAllTasksTest() throws Exception {
+        createTask();
+
+        mockMvc.perform(get("/tasks"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(1))
+                .andExpect(jsonPath("$[0].title").value("테스트 할 일"));
+    }
+
     // 잘못된 제목으로 등록하는 테스트
     @Test
     void createTaskFailTest() throws Exception {
