@@ -43,6 +43,13 @@ public class TaskController {
         // Service에서 해당 ID의 할 일 조회하고, 200(OK) + 조회 결과 반환
         return ResponseEntity.ok(taskService.getTask(id));
     }
+    // 제목으로 할 일 조회
+    @GetMapping("/title")
+    public ResponseEntity<TaskResponse> getTaskByTitle(
+            @RequestParam String title
+    ) {
+        return ResponseEntity.ok(taskService.getTaskByTitle(title));
+    }
 
     // 할 일 수정
     @PutMapping("/{id}")
