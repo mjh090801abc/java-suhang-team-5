@@ -1,3 +1,6 @@
 spring:
   application:
     name: todaywhat
+
+  jpa:
+    defer-datasource-initialization: true
